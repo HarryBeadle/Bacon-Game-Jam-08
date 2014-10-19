@@ -63,7 +63,7 @@ Searches_By_Catagory = {
     "People"         : ["Paul Walker", "Cory Monteith", "Oscar Pistorious", "Nelson Mandela", "Margret Thathcher", "Peter Capaldi", "Nigella Lawson", "Tom Daley", "Lou Reed", "Joey Essex"],
     "Events"         : ["Grand National", "Wimbolden", "Eurovision", "Confederations Cup", "The Oscars", "Red Nose Day", "Glastonbury", "Lovebox", "Brit Awards", "The Ashes"],
     "Football Stars" : ["Gareth Bale", "Willian Borges da Silva", "Mesut Ozil", "David Moyes", "Christian Bentiez", "Thiago Alcantara", "Paul Gascoigne", "Gonzalo, Higuain", "Adnan Januzaj", "Razor Ruddock"],
-    "How to"         : ["How to make pancakes", "How to wrtite a CV", "How to loose weight", "How to draw manga", "How to play poker", "How to play guitar", "How to get a flat stomach", "How to dip dye hair", "How to reset iPod", "How to find IP address"],
+    "How To"         : ["How to make pancakes", "How to wrtite a CV", "How to loose weight", "How to draw manga", "How to play poker", "How to play guitar", "How to get a flat stomach", "How to dip dye hair", "How to reset iPod", "How to find IP address"],
     "Movies"         : ["Man of Steel", "World War Z", "Iron Man 3", "The Conjuring", "Dispicable Me 2", "The Impossible", "The Life of Pi", "Insidious", "Elysium", "Skyfall"],
     "Songs"          : ["Harlem Shake", "Gangnam Style", "Blured Lines", "Thrift Shop", "Wreckig Ball", "Roar", "Impossible", "Holy Grail", "Get Lucky", "Mirrors"],
     "Places"         : ["Rome", "New York", "Amsterdam", "Palma", "Magaluf", "Bangkok", "Sydney", "Bruges", "Venice", "Mauritius"],
@@ -103,6 +103,8 @@ def Input():
         if Event.key == p.K_RIGHT: Output.append("Right")
         if Event.key == p.K_RETURN: Output.append("Enter")
         if Event.key == p.K_ESCAPE: p.quit();quit()
+    if p.event.get(p.MOUSEBUTTONUP): Output.append("Mouse")
+    if p.event.get(p.QUIT): p.quit();quit()
     return Output
 
 def mainMenu():
@@ -128,13 +130,13 @@ def mainMenu():
     p.display.flip()
     while True:
         INPUT = Input()
-        if "Enter" in INPUT:
+        if "Enter" in INPUT or "Mouse" in INPUT:
             return Selection
-        if "Right" in INPUT and Selection == 0:
+        if ("Right" in INPUT or p.mouse.get_pos()[0]>(X/2)) and Selection == 0:
             Selection = 1
             p.draw.rect(scr, GREY, (106,360,480,180), 3)
             p.draw.rect(scr, BLUE, (694,360,480,180), 3)
-        if "Left" in INPUT and Selection == 1:
+        if ("Left" in INPUT or p.mouse.get_pos()[0]<(X/2)) and Selection == 1:
             Selection = 0
             p.draw.rect(scr, BLUE, (106,360,480,180), 3)
             p.draw.rect(scr, GREY, (694,360,480,180), 3)
@@ -145,7 +147,7 @@ def catagorySelection():
     p.draw.rect(scr, WHITE, (140,310,1000,100))
     p.draw.rect(scr, BLUE, (140,310,1000,100), 3)
     scr.blit(
-        ARIAL.render("Choose your catagory...", 1, BLACK),
+        ARIAL.render("Choose your catagory... (use arrow keys)", 1, BLACK),
         (
             (140,250)
         )
@@ -200,13 +202,13 @@ def play(String1, String2):
     p.display.flip()
     while True:
         INPUT = Input()
-        if "Enter" in INPUT:
+        if "Enter" in INPUT or "Mouse" in INPUT:
             return State
-        if "Up" in INPUT and State == 1:
+        if ("Up" in INPUT or p.mouse.get_pos()[1] < (Y/2)) and State == 1:
             scr.blit(surfaceForegroundTemp, Origin)
             scr.blit(surfacePrimary, Origin)
             State = 0
-        if "Down" in INPUT and State == 0:
+        if ("Down" in INPUT or p.mouse.get_pos()[1] > (Y/2)) and State == 0:
             scr.blit(surfaceForegroundTemp, Origin)
             scr.blit(surfaceSecondary, Origin)
             State = 1
@@ -225,7 +227,7 @@ def finishPage(Score, List):
     )
     while True:
         INPUT = Input()
-        if "Enter" in INPUT:
+        if "Enter" in INPUT or "Mouse" in INPUT:
             return
         p.display.flip()
 
