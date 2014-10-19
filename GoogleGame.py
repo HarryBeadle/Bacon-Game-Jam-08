@@ -57,6 +57,9 @@ p.draw.rect(surfaceSecondary, GREY, (140,130,1000,100), 3)
 imgGoogle = p.image.load("google.bmp").convert()
 imgGoogle.set_colorkey(WHITE)
 
+imgBacon = p.image.load("bacon.png")
+imgBacon.set_colorkey(WHITE)
+
 ## Top Searches of 2013 by Catagory
 Searches_By_Catagory = {
     "All"            : ["Paul Walker", "iPhone 5S", "Royal Baby", "Cory Monteith", "Oscar Pistorious", "Nelson Mandela", "Grand National 2013", "Universal Jobmatch", "Margret Thatcher", "Xbox One"],
@@ -93,7 +96,6 @@ def getLiveList():
         del List[-1]
     return List
 
-
 def Input():
     Output = []
     for Event in p.event.get(p.KEYDOWN):
@@ -106,6 +108,19 @@ def Input():
     if p.event.get(p.MOUSEBUTTONUP): Output.append("Mouse")
     if p.event.get(p.QUIT): p.quit();quit()
     return Output
+
+def splash():
+    # Splash Screen
+    scr.fill((190,70,46))
+    scr.blit(
+        imgBacon,
+        (
+            (X-imgBacon.get_size()[0])/2,
+            (Y-imgBacon.get_size()[1])/2
+        )
+    )
+    p.display.flip()
+    p.time.wait(1000)
 
 def mainMenu():
     scr.fill(DGRAY)
@@ -261,4 +276,5 @@ def main():
     finishPage(Score, List)
     
 if __name__ == '__main__':
+    splash()
     while True: main()
