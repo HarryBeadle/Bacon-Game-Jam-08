@@ -14,7 +14,7 @@ When in game you are tasked with selecting the most popular term out of a random
 
 ## Controls
 
-To play the game use the arrow keys and the enter button.
+To play the game select buttons with the mouse, and change catagories with the arrow keys.
 
 ## Credits
 
